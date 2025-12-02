@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MovieVerse — Neon</title>
+  <link rel="icon" href="MovieVerse.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="mv-header">
+    <div class="mv-left">
+      <img src="MovieVerse.png" alt="MovieVerse" id="mvLogo" class="mv-logo" onerror="this.src='https://via.placeholder.com/96x96.png?text=MV'">
+      <div class="mv-brand">
+        <h1>MovieVerse <span class="tag">Neon</span></h1>
+        <small class="sub">Futurista • Gamer • Neon</small>
+      </div>
+    </div>
+
+    <nav class="mv-nav" id="mainNav">
+      <a href="#" data-route="home" class="nav-link active">Home</a>
+      <a href="#" data-route="catalog" class="nav-link">Catálogo</a>
+      <a href="#" data-route="add" class="nav-link">Adicionar</a>
+      <a href="#" data-route="favorites" class="nav-link">Favoritos</a>
+      <a href="#" data-route="ranking" class="nav-link">Ranking</a>
+      <a href="#" data-route="profile" class="nav-link">Perfil</a>
+    </nav>
+
+    <div class="mv-actions">
+      <button id="themeToggle" class="btn ghost small">Light</button>
+      <div id="greeting" class="greeting">Olá, visitante 👋</div>
+      <button id="btnAuthOpen" class="btn neon">Entrar / Cadastrar</button>
+      <button id="btnLogout" class="btn ghost" style="display:none">Sair</button>
+    </div>
+  </header>
+
+  <main id="app" class="container">
+    <!-- HOME -->
+    <section id="page-home" class="page">
+      <div class="hero">
+        <div class="hero-left">
+          <h2>Bem-vindo ao <span class="accent">MovieVerse Neon</span></h2>
+          <p class="lead">Explore. Avalie. Favorite.</p>
+          <div class="hero-cta">
+            <button class="btn neon" data-route-to="catalog">Ver Catálogo</button>
+            <button class="btn ghost" id="ctaAddQuick">Adicionar (precisa logar)</button>
+          </div>
+        </div>
+        <div id="heroSlider" class="hero-slider" aria-hidden="false"></div>
+      </div>
+
+      <h3 class="section-title">Destaques</h3>
+      <div id="homeHighlights" class="grid highlights"></div>
+    </section>
+
+    <!-- CATALOG -->
+    <section id="page-catalog" class="page hidden">
+      <div class="page-head">
+        <h2>Catálogo</h2>
+        <div class="controls">
+          <input id="searchInput" class="search" placeholder="Pesquisar por título, gênero ou ator..." />
+          <select id="filterSort" class="filter">
+            <option value="recent">Mais recentes</option>
+            <option value="rating">Melhor avaliados</option>
+            <option value="alpha">A → Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="catalogGrid" class="grid catalog-grid"></div>
+    </section>
+
+    <!-- ADD -->
+    <section id="page-add" class="page hidden">
+      <div class="neon-card add-card">
+        <h2 id="addTitle">Adicionar Novo Filme/Série</h2>
+        <form id="formAddEdit" class="mv-form">
+          <div class="form-grid">
+            <div class="form-group"><label>Nome *</label><input id="fieldName" required /></div>
+            <div class="form-group"><label>Gênero *</label><input id="fieldGenre" required /></div>
+            <div class="form-group"><label>Elenco (separado por ,) *</label><input id="fieldCast" required /></div>
+            <div class="form-group"><label>Data de lançamento</label><input type="date" id="fieldDate" /></div>
+            <div class="form-group"><label>Diretor</label><input id="fieldDirector" /></div>
+            <div class="form-group"><label>Classificação etária</label><input id="fieldAge" placeholder="Livre, 12+, 16+..." /></div>
+            <div class="form-group"><label>Plataformas</label><input id="fieldPlatforms" placeholder="Netflix, HBO..." /></div>
+            <div class="form-group full"><label>Imagem (URL) *</label><input id="fieldImage" placeholder="https://..." required /></div>
+            <div class="form-group full"><label>Sinopse *</label><textarea id="fieldSynopsis" required></textarea></div>
+          </div>
+
+          <div class="form-actions center">
+            <button class="btn neon" type="submit">Salvar</button>
+            <button class="btn ghost" type="button" id="btnCancelAdd">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAVORITES -->
+    <section id="page-favorites" class="page hidden">
+      <h2>Seus Favoritos</h2>
+      <div id="favoritesGrid" class="grid catalog-grid"></div>
+    </section>
+
+    <!-- RANKING -->
+    <section id="page-ranking" class="page hidden">
+      <h2>Ranking — Top filmes</h2>
+      <div id="rankingGrid" class="grid catalog-grid"></div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="page-profile" class="page hidden">
+      <div class="page-card profile-card">
+        <h2>Perfil</h2>
+        <div class="profile-info">
+          <div><strong>Nome:</strong> <span id="profileName">-</span></div>
+          <div><strong>Email:</strong> <span id="profileEmail">-</span></div>
+        </div>
+
+        <h3 class="section-sub">Meus conteúdos</h3>
+        <div id="userContents" class="grid user-contents"></div>
+
+        <h3 class="section-sub">Meus Favoritos</h3>
+        <div id="userFavs" class="grid catalog-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mv-footer">
+    <div>MovieVerse Neon • Feito por Alicia Menezes e Danielle Cardoso</div>
+    <div class="links"><a href="#" data-route="about">Sobre</a> · <a href="#" data-route="catalog">Catálogo</a></div>
+  </footer>
+
+  <!-- MODALS -->
+
+  <!-- AUTH MODAL -->
+  <div class="modal" id="modalAuth" aria-hidden="true">
+    <div class="modal-dialog neon-auth">
+      <button class="modal-close" data-close>&times;</button>
+      <div class="auth-title">Acessar MovieVerse</div>
+      <div class="auth-tabs">
+        <button id="tabLogin" class="tab active">Entrar</button>
+        <button id="tabRegister" class="tab">Cadastrar</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="formLogin" class="mv-form auth-form">
+        <div class="mv-input">
+          <label>Email ou usuário</label>
+          <input id="loginUser" type="text" required />
+        </div>
+
+        <div class="mv-input">
+          <label>Senha</label>
+          <input id="loginPass" type="password" required />
+        </div>
+
+        <button class="btn neon" type="submit">Entrar</button>
+      </form>
+
+      <!-- REGISTER -->
+      <form id="formRegister" class="mv-form auth-form" style="display:none">
+        <div class="mv-input">
+          <label>Nome</label>
+          <input id="regName" required />
+        </div>
+
+        <div class="mv-input">
+          <label>Email</label>
+          <input id="regEmail" type="email" required />
+        </div>
+
+        <div class="mv-input">
+          <label>Senha (mín. 6)</label>
+          <input id="regPass" type="password" required />
+        </div>
+
+        <button class="btn neon" type="submit">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DETAILS MODAL -->
+  <div class="modal" id="modalDetails" aria-hidden="true">
+    <div class="modal-dialog neon-border large">
+      <button class="modal-close" data-close>&times;</button>
+      <div class="detail-grid">
+        <div class="detail-image">
+          <img id="detailImg" src="" alt="Capa" onerror="this.src='https://via.placeholder.com/500x750.png?text=Imagem+Indispon%C3%ADvel'">
+        </div>
+        <div class="detail-body">
+          <h3 id="detailName">Nome</h3>
+          <div class="meta" id="detailMeta"></div>
+          <p id="detailSynopsis"></p>
+
+          <div class="rating-block">
+            <div class="avg-rating">Média: <span id="avgRating">0</span> ★</div>
+            <div class="user-rating">Sua avaliação: <div id="userStars" class="star-input"></div></div>
+          </div>
+
+          <div class="comments-section">
+            <h4>Comentários</h4>
+            <div id="commentsList" class="comments-list"></div>
+            <form id="formComment" class="mv-form comment-form">
+              <textarea id="commentText" placeholder="Deixe um comentário..."></textarea>
+              <div class="form-actions"><button class="btn" type="submit">Comentar</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM -->
+  <div class="modal" id="modalConfirm" aria-hidden="true">
+    <div class="modal-dialog neon-border small">
+      <button class="modal-close" data-close>&times;</button>
+      <h3>Confirmação</h3>
+      <p id="confirmText">Deseja mesmo?</p>
+      <div class="form-actions">
+        <button class="btn" id="confirmYes">Sim</button>
+        <button class="btn ghost" id="confirmNo">Não</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
